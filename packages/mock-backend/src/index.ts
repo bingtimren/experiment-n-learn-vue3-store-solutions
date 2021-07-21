@@ -10,7 +10,7 @@ export function createTodoItem(item: TodoItem) {
   storage.push(item);
 }
 
-export function getTodoItems(): Readonly<TodoItem[]> {
+export function getTodoItems(): TodoItem[] {
   return storage;
 }
 

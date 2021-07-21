@@ -6,8 +6,8 @@
   "homepage": "https://github.com/bingtimren/vue3-store-solution-tests/tree/main/packages/mock-backend#readme",
   "license": "MIT",
   "private": "true",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bingtimren/vue3-store-solution-tests.git"
