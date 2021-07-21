@@ -1,0 +1,22 @@
+{
+  "name": "mock-backend",
+  "version": "0.1.0",
+  "description": "mocked backend",
+  "author": "Bing Ren <bingtimren@gmail.com>",
+  "homepage": "https://github.com/bingtimren/vue3-store-solution-tests/tree/main/packages/mock-backend#readme",
+  "license": "MIT",
+  "private": "true",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bingtimren/vue3-store-solution-tests.git"
+  },
+  "scripts": {
+    "build": "op-tscdoc",
+    "test": "echo no test"
+  },
+  "bugs": {
+    "url": "https://github.com/bingtimren/vue3-store-solution-tests/issues"
+  }
+}
