@@ -1,0 +1,22 @@
+{
+    "version": "independent",
+    "npmClient": "yarn",
+    "useWorkspaces": true,
+    "packages": ["packages/*", "tools/*", "apps/*"],
+    "command": {
+      "create": {
+        "access": "public",
+        "private": false,
+        "license": "MIT",
+        "es-module": true
+      },
+      "publish": {
+        "message": "chore(release): publish",
+        "registry": "http://localhost:4873"
+      },
+      "version": {
+        "allowBranch": "main",
+        "conventionalCommits": true
+      }
+    }
+  }

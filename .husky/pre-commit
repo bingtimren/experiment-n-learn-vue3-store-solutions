@@ -1,0 +1,7 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+lerna run --stream --since HEAD build
+lerna run --stream --since HEAD test
+yarn op-lint-staged
+lerna exec --stream --since HEAD yarn depcheck

@@ -1,0 +1,29 @@
+{
+  "name": "vue3-store-solution-tests",
+  "version": "0.1.0",
+  "description": "A project based learning / comparison of Vue3 data store solutions",
+  "private": true,
+  "scripts": {
+    "build": "lerna run --stream --since HEAD build",
+    "test": "lerna run --stream --since HEAD test"
+  },
+  "workspaces": [
+    "packages/*",
+    "tools/*",
+    "apps/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bingtimren/vue3-store-solution-tests.git"
+  },
+  "devDependencies": {
+    "@bingsjs/ts-lerna-std-tools": "^0.2.0",
+    "@types/jest": "^26.0.23"
+  },
+  "author": "Bing Ren",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bingtimren/vue3-store-solution-tests/issues"
+  },
+  "homepage": "https://github.com/bingtimren/vue3-store-solution-tests#readme"
+}
