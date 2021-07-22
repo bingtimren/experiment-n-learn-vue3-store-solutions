@@ -60,3 +60,5 @@ export function removeItemById(id: number) {
     throw Error("Not found");
   }
 }
+
+retrieveItems();
