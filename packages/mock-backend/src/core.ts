@@ -16,7 +16,7 @@ export function todoItemValidator(
 ): TodoItemValidationResult {
   const result: TodoItemValidationResult = {};
   if (typeof item.id !== "number") result.id = "id missing or not number";
-  if (typeof item.title !== "number")
+  if (typeof item.title !== "string")
     result.title = "title missing or not string";
   if (typeof item.completed !== "boolean")
     result.completed = "completed missing or not boolean";
@@ -39,7 +39,11 @@ export function todosPrettyPrint(items: TodoItem[]) {
 }
 
 export function checkItems(items: TodoItem[]) {
-  if (items.some((item) => Object.keys(todoItemValidator(item)).length === 1)) {
-    throw new Error(`Some item is invalid`);
+  for (const item of items) {
+    if (Object.keys(todoItemValidator(item)).length > 0) {
+      console.log(`checkItem throwing:\n${todosPrettyPrint([item])}`);
+      throw new Error(`Some item is invalid`);
+    }
   }
+  console.log(`checkItem passing:\n${todosPrettyPrint(items)}`);
 }
