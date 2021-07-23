@@ -1,13 +1,7 @@
 import { reactive, readonly } from "vue";
-import {
-  TodoItem,
-  createTodoItem,
-  getTodoItems,
-  updateItem,
-  retrieveItems,
-  todoItemValidator,
-  checkItems,
-} from "mock-backend";
+import * as backend from "mock-backend";
+
+type TodoItem = backend.TodoItem;
 
 interface State {
   todos: TodoItem[];
@@ -32,51 +26,53 @@ export function createTodo(title: string): TodoItem {
     title,
     completed: false,
   } as any;
-  checkItems([newItem]);
-  createTodoItem(newItem);
+  backend.checkItems([newItem]); // throw if new item not valid
+  backend.createTodoItem(newItem); // persist
   internalState.todos.push(newItem);
   internalState.todoValidations.push(true);
   return newItem;
 }
 
 function validateAll(items: TodoItem[]) {
-  return items.map((item) => Object.keys(todoItemValidator(item)).length === 0);
+  return items.map(
+    (item) => Object.keys(backend.todoItemValidator(item)).length === 0
+  );
 }
 /**
  * fetch todo from backend
  */
 export function fetchTodos() {
-  retrieveItems();
-  const todoItems = getTodoItems();
-  const validation = validateAll(todoItems);
-  internalState.todos.splice(0, internalState.todos.length, ...todoItems);
+  backend.retrieveItems();
+  const todoItems = backend.getTodoItems();
+  const validation: boolean[] = validateAll(todoItems);
+  internalState.todos.splice(0, internalState.todos.length, ...todoItems); // replace todo items
   internalState.todoValidations.splice(
     0,
     internalState.todoValidations.length,
     ...validation
-  );
+  ); // replace validation results
 }
 
-export function updateTodo(item: TodoItem) {
-  const index = internalState.todos.findIndex((i) => i.id === item.id);
-  if (index >= 0) {
-    const validation = Object.keys(todoItemValidator(item)).length === 0;
-    if (validation) {
-      updateItem(item);
-      internalState.todos[index] = item;
-    }
-    internalState.todoValidations[index] = validation;
+export function updateTodo(index: number, item: TodoItem) {
+  if (internalState.todos[index]?.id !== item.id) {
+    throw new Error("id not consistent");
+  }
+
+  const validation = Object.keys(backend.todoItemValidator(item)).length === 0;
+  internalState.todos[index] = item; // update anyway even invalid
+  internalState.todoValidations[index] = validation; // update anyway even invalid
+  if (validation) {
+    backend.updateItem(item); // persist only when valid
   }
 }
 
-export function removeTodoById(id: TodoItem["id"]) {
-  const index = internalState.todos.findIndex((i) => i.id === id);
-  if (index >= 0) {
-    internalState.todos.splice(index, 1);
-    internalState.todoValidations.splice(index, 1);
-  } else {
-    throw new Error(`ID ${id} not found`);
+export function removeTodoByIndexAndId(index: number, id: TodoItem["id"]) {
+  if (internalState.todos[index]?.id !== id) {
+    throw new Error("id not consistent");
   }
+  backend.removeItemById(id);
+  internalState.todos.splice(index, 1);
+  internalState.todoValidations.splice(index, 1);
 }
 
 fetchTodos();
