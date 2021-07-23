@@ -6,7 +6,7 @@
         <input type="text" :value="todo.title" @input="updateTodo(todo, $event)" />
       </td>
       <td>
-        <input type="checkbox" @change="updateTodo(todo, $event)" />
+        <input type="checkbox" :checked="todo.completed" @change="updateTodo(todo, $event)" />
       </td>
       <td>{{ todoValid[index] ? "" : "[X]" }}</td>
       <td></td>
